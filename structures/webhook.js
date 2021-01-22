@@ -89,7 +89,27 @@ module.exports = (client) => {
   });
 
   handler.on("pull_request", function (event) {
-    console.log(event)
+    console.log(event);
+    const embed = new MessageEmbed()
+      .setAuthor(
+        event.payload.sender.login,
+        event.payload.sender.avatar_url,
+        event.payload.sender.html_url
+      )
+      .setTitle(event.payload.repository.full_name)
+      .setDescription(
+        `${event.payload.pull_request.title}\n\n${event.payload.pull_request.html_url}`
+      )
+      .addField("Número da pull request:", event.payload.pull_request.number)
+      .addField(
+        "Ação:",
+        event.payload.action === "closed" ? "Fechada" : "Aberta"
+      )
+      .setFooter(event.payload.repository.description)
+      .setTimestamp()
+      .setURL(event.payload.repository.html_url)
+      .setColor("#cc2b73");
+    logger(embed);
   });
   function logger(message) {
     const channel = client.channels.cache.get("751119080748220496");
