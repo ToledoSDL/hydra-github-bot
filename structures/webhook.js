@@ -33,6 +33,26 @@ module.exports = (client) => {
     logger(embed);
   });
 
+  handler.on("check_suite", function (event) {
+    console.log(event.payload.checkrun.app);
+    console.log(event.payload.checkrun.check_suite);
+    const embed = new MessageEmbed()
+      .setAuthor(
+        event.payload.sender.login,
+        event.payload.sender.avatar_url,
+        event.payload.sender.html_url
+      )
+      .setTitle(event.payload.repository.full_name)
+   //   .setDescription(`${event.payload.issue.title}\n\n${event.payload.issue.body}`)
+     // .addField("Nome:", event.payload.issue.number)
+      .addField("Ação", event.payload.action)
+      .setFooter(event.payload.repository.description)
+      .setTimestamp()
+      .setURL(event.payload.repository.html_url)
+      .setColor("#e69d20");
+    logger(embed);
+  });
+
   handler.on("issues", function (event) {
     const embed = new MessageEmbed()
       .setAuthor(
@@ -55,11 +75,6 @@ module.exports = (client) => {
       .setColor("#e8452c");
     logger(embed);
   });
-
-  handler.on("*", function (event) {
-    console.log(event);
-  });
-
   function logger(message) {
     const channel = client.channels.cache.get("751119080748220496");
     channel.send(message);
