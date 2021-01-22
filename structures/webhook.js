@@ -34,8 +34,7 @@ module.exports = (client) => {
   });
 
   handler.on("check_suite", function (event) {
-    console.log(event.payload.checkrun.app);
-    console.log(event.payload.checkrun.check_suite);
+    console.log(event.payload.checkrun);
     const embed = new MessageEmbed()
       .setAuthor(
         event.payload.sender.login,
