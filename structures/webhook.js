@@ -34,7 +34,6 @@ module.exports = (client) => {
   });
 
   handler.on("check_suite", function (event) {
-    console.log(event);
     const embed = new MessageEmbed()
       .setAuthor(
         event.payload.sender.login,
@@ -51,7 +50,6 @@ module.exports = (client) => {
   });
 
   handler.on("check_run", function (event) {
-    console.log(event);
     const embed = new MessageEmbed()
       .setAuthor(
         event.payload.sender.login,
@@ -88,6 +86,10 @@ module.exports = (client) => {
       .setURL(event.payload.repository.html_url)
       .setColor("#e8452c");
     logger(embed);
+  });
+
+  handler.on("pull_request", function (event) {
+    console.log(event)
   });
   function logger(message) {
     const channel = client.channels.cache.get("751119080748220496");
