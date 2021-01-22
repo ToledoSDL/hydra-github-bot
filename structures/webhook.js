@@ -18,6 +18,7 @@ module.exports = (client) => {
   });
 
   handler.on("push", function (event) {
+    client.user.setActivity(`commit: ${event.payload.head_commit.id}`, { type: "PLAYING"})
     const embed = new MessageEmbed()
       .setAuthor(
         event.payload.sender.login,
@@ -25,7 +26,7 @@ module.exports = (client) => {
         event.payload.sender.html_url
       )
       .setTitle(event.payload.repository.full_name)
-      .addField("Mensagem do commit:", event.payload.head_commit.message)
+      .addField("Mensagem do commit:", event.payload.head_commit.message ? event.payload.head_commit.message : 'Nenhuma')
       .setFooter(event.payload.repository.description)
       .setTimestamp()
       .setURL(event.payload.repository.html_url)
