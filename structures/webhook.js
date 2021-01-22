@@ -28,6 +28,7 @@ module.exports = (client) => {
       .addField("Mensagem do commit:", event.payload.head_commit.message)
       .setFooter(event.payload.repository.description)
       .setTimestamp()
+      .setURL(event.payload.repository.html_url)
       .setColor("#c078f0");
     logger(embed);
   });
@@ -50,6 +51,7 @@ module.exports = (client) => {
       )
       .setFooter(event.payload.repository.description)
       .setTimestamp()
+      .setURL(event.payload.repository.html_url)
       .setColor("#e8452c");
     logger(embed);
   });
