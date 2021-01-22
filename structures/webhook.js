@@ -7,7 +7,6 @@ module.exports = (client) => {
     .createServer(function (req, res) {
       handler(req, res, function (err) {
         res.statusCode = 404;
-        res.send("no such location");
       });
     })
     .listen(3020);
@@ -32,5 +31,9 @@ module.exports = (client) => {
       event.payload.issue.number,
       event.payload.issue.title
     );
+  });
+
+  handler.on("*", function (event) {
+    console.log(event);
   });
 };
