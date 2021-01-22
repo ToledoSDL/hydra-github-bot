@@ -7,7 +7,7 @@ module.exports = (client) => {
     .createServer(function (req, res) {
       handler(req, res, function (err) {
         res.statusCode = 404;
-        res.end("no such location");
+        res.send("no such location");
       });
     })
     .listen(3020);
