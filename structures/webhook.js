@@ -10,7 +10,7 @@ module.exports = (client) => {
         res.end("no such location");
       });
     })
-    .listen(7777);
+    .listen(3020);
 
   handler.on("error", function (err) {
     console.error("Error:", err.message);
