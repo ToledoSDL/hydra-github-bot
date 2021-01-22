@@ -34,7 +34,7 @@ module.exports = (client) => {
   });
 
   handler.on("check_suite", function (event) {
-    console.log(event.payload.checkrun);
+    console.log(event);
     const embed = new MessageEmbed()
       .setAuthor(
         event.payload.sender.login,
@@ -42,9 +42,24 @@ module.exports = (client) => {
         event.payload.sender.html_url
       )
       .setTitle(event.payload.repository.full_name)
-   //   .setDescription(`${event.payload.issue.title}\n\n${event.payload.issue.body}`)
-     // .addField("Nome:", event.payload.issue.number)
-      .addField("Ação", event.payload.action)
+      .addField("Ação do check suite", event.payload.check_suite.status)
+      .setFooter(event.payload.repository.description)
+      .setTimestamp()
+      .setURL(event.payload.repository.html_url)
+      .setColor("#e69d20");
+    logger(embed);
+  });
+
+  handler.on("check_run", function (event) {
+    console.log(event);
+    const embed = new MessageEmbed()
+      .setAuthor(
+        event.payload.sender.login,
+        event.payload.sender.avatar_url,
+        event.payload.sender.html_url
+      )
+      .setTitle(event.payload.repository.full_name)
+      .addField("Ação do check run", event.payload.check_run.status)
       .setFooter(event.payload.repository.description)
       .setTimestamp()
       .setURL(event.payload.repository.html_url)
